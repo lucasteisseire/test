@@ -1,4 +1,6 @@
+// Libraries
 import { ApolloProvider } from '@apollo/client'
+// Apollo Utils
 import client from '../apollo-client'
 function MyApp({ Component, pageProps }) {
   return (

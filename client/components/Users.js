@@ -1,13 +1,15 @@
+// Libraries
 import { useState, useEffect } from 'react'
-import CardUser from './CardUser'
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from '@material-ui/core';
+// Components
+import CardUser from './CardUser'
 // GQL
 import { useLazyQuery, useQuery } from '@apollo/client'
 import { GET_USERS } from '../graphql/query'
-
 // Material UI
 import { Button } from '@material-ui/core'
+
 const Users = () => {
   const [numberOfCardDisplayed, setNumberOfCardDisplayed] = useState(20)
   const [users, setUsers] = useState([])
@@ -15,7 +17,7 @@ const Users = () => {
   const [getUsers, { called, loading, data }] = useLazyQuery(
     GET_USERS,
     { variables: { usersFirst: numberOfCardDisplayed }, onCompleted: data => {
-      setUsers([...users, ...data.users])
+      setUsers([...data.users])
     }}
     
   );
@@ -27,7 +29,7 @@ const Users = () => {
     getUsers()
   }
   return(
-    <div className={classes.root}>
+    <div >
       <Grid container className={classes.container}   
         container
         direction="row"
@@ -45,19 +47,13 @@ const Users = () => {
         </Grid>
       </Grid>
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 40, paddingBottom: 40,}}> 
-        <Button className={classes.button} variant="contained" color="primary" onClick={loadMoreUsers}>{loading ? 'Loading...': 'Load More'}</Button>
+        <Button color="primary" variant="contained" onClick={loadMoreUsers}>{loading ? 'Loading...': 'Load More'}</Button>
       </div>
     </div>
   )
 }
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'space-around',
-    flexDirection: 'column',
-  },
-  button: {
+  myButton: {
     width: 120
   },
   item: {
